@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
@@ -45,20 +46,23 @@ const DUMMY_MEALS = [
 				optionList: ["full", "skimmed"],
 			},
 		],
-		slug: "item-1"
+		slug: "item-1",
 	},
 ];
 
-const AvailableMeals = () => {
+const AvailableMeals = (props) => {
 	const mealsList = DUMMY_MEALS.map((meal) => (
-		<MealItem
-			id={meal.id}
-			key={meal.id}
-			name={meal.name}
-			description={meal.description}
-			price={meal.price}
-			stock={meal.stock}
-		/>
+		<Fragment>
+			<MealItem
+				id={meal.id}
+				key={meal.id}
+				name={meal.name}
+				description={meal.description}
+				price={meal.price}
+				stock={meal.stock}
+				onShow={props.onShow}
+			/>
+		</Fragment>
 	));
 	return (
 		<section className={classes.meals}>
