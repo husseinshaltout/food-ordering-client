@@ -57,7 +57,9 @@
 	height: 100%;
 	object-fit: cover;
 }
-
+.order-item__option {
+	padding: 0.5rem 0;
+}
 .order-item label {
 	font-weight: bold;
 	margin-right: 1rem;

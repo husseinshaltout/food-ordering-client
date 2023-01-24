@@ -1,3 +1,4 @@
+import React from "react";
 import Modal from "../../UI/Modal";
 import classes from "./MealOrder.module.css";
 const MealOrder = (props) => {
@@ -23,22 +24,36 @@ const MealOrder = (props) => {
 	};
 	const isOptionsAvailable = item.options.length > 0;
 
+	const [checked, setChecked] = React.useState([]);
+
+	const checkboxHandler = (event) => {
+		let updatedList = [...checked];
+		console.log(updatedList);
+		if (event.target.checked) {
+			updatedList = [...checked, event.target.value];
+		} else {
+			updatedList.splice(checked.indexOf(event.target.value), 1);
+		}
+		setChecked(updatedList);
+	};
+
 	const listOptions = item.options.map(
-		(option) =>
+		(option, index) =>
 			option.isAvailable && (
-				<div>
+				<div key={index} className={classes["order-item__option"]}>
 					<label>
-						<input type="radio" />
+						<input onClick={checkboxHandler} type="checkbox" />
 						{option.name}
 					</label>
 					<select>
-						{option.optionList.map((selection) => (
-							<option>{selection}</option>
+						{option.optionList.map((selection, index) => (
+							<option key={index}>{selection}</option>
 						))}
 					</select>
 				</div>
 			)
 	);
+
 	const orderItem = (
 		<ul className={classes["order-item"]}>
 			<li>

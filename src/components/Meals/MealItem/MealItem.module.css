@@ -20,3 +20,20 @@
 	color: #143366;
 	font-size: 1.25rem;
 }
+
+.meal button {
+	font: inherit;
+	cursor: pointer;
+	background-color: #143366;
+	border: 1px solid #143366;
+	color: white;
+	padding: 0.25rem 2rem;
+	border-radius: 20px;
+	font-weight: bold;
+}
+
+.meal button:hover,
+.meal button:active {
+	background-color: #0f3a85;
+	border-color: #0f3a85;
+}
