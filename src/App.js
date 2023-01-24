@@ -1,8 +1,10 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import Cart from "./components/Cart/Cart";
 
 import Header from "./components/Layout/Header";
+import MealOrder from "./components/Meals/MealOrder/MealOrder";
 import Meals from "./components/Meals/Meals";
+import CartProvider from "./store/CartProvider";
 
 function App() {
 	const [cartIsShown, setCartIsShown] = useState(false);
@@ -14,14 +16,25 @@ function App() {
 		setCartIsShown(false);
 	};
 
+	const [mealOrderIsShown, setMealOrderIsShown] = useState(false);
+
+	const showMealOrderHandler = () => {
+		setMealOrderIsShown(true);
+	};
+
+	const hideMealOrderHandler = () => {
+		setMealOrderIsShown(false);
+	};
+
 	return (
-		<Fragment>
+		<CartProvider>
 			{cartIsShown && <Cart onClose={hideCartHandler} />}
-			<Header onShowCart={showCartHandler}/>
+			{mealOrderIsShown && <MealOrder onClose={hideMealOrderHandler} />}
+			<Header onShowCart={showCartHandler} />
 			<main>
-				<Meals />
+				<Meals onShow={showMealOrderHandler} />
 			</main>
-		</Fragment>
+		</CartProvider>
 	);
 }
 
