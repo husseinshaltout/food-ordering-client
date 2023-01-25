@@ -6,47 +6,65 @@ import MealItem from "./MealItem/MealItem";
 const DUMMY_MEALS = [
 	{
 		id: "m1",
-		name: "Sushi",
-		description: "Finest fish and veggies",
+		name: "Red Tea Ahmed Tea",
 		stock: 6,
-		price: 22.99,
-	},
-	{
-		id: "m2",
-		name: "Schnitzel",
-		description: "A german specialty!",
-		stock: 6,
-		price: 16.5,
-	},
-	{
-		id: "m3",
-		name: "Barbecue Burger",
-		description: "American, raw, meaty",
-		stock: 6,
-		price: 12.99,
-	},
-	{
-		id: "m4",
-		name: "Green Bowl",
-		description: "Healthy...and green...",
-		stock: 6,
-		price: 18.99,
-	},
-	{
-		id: "m5",
-		name: "Item 1",
-		description: "Healthy...and green...",
-		stock: 64,
-		price: 18.99,
-		category: "636794f32006a934d7a095a2",
+		category: "Tea",
 		options: [
 			{
-				name: "milk",
+				name: "Milk",
 				isAvailable: true,
 				optionList: ["full", "skimmed"],
 			},
+			{
+				name: "Sugar",
+				isAvailable: true,
+				optionList: ["1", "2"],
+			},
 		],
-		slug: "item-1",
+		cover_img:
+			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
+	},
+	{
+		id: "m2",
+		name: "Redbull",
+		stock: 6,
+		category: "Energy Drinks",
+		options: [],
+		cover_img:
+			"https://cdn.gourmetegypt.com/media/catalog/product/cache/2b4d21b90ad5abb98380bc0a709a4ac8/9/0/90162602.jpg",
+	},
+	{
+		id: "m3",
+		name: "Green Cola Lemon Flavor",
+		stock: 6,
+		category: "Fizzy Drinks",
+		options: [],
+		cover_img:
+			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
+	},
+	{
+		id: "m4",
+		name: "Green Cola Cherry Flavor",
+		stock: 6,
+		category: "Fizzy Drinks",
+		options: [],
+		cover_img:
+			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
+	},
+	{
+		id: "m5",
+		name: "Cafe Latte",
+		stock: 64,
+		category: "Coffee",
+		options: [
+			{
+				name: "Milk",
+				isAvailable: true,
+				optionList: ["Full", "Skimmed"],
+			},
+		],
+		cover_img:
+			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
 	},
 ];
 
@@ -57,9 +75,10 @@ const AvailableMeals = (props) => {
 				id={meal.id}
 				key={meal.id}
 				name={meal.name}
-				description={meal.description}
-				price={meal.price}
 				stock={meal.stock}
+				category={meal.category}
+				options={meal.options}
+				thumbnail={meal.cover_img}
 				onShow={props.onShow}
 			/>
 		</Fragment>
