@@ -1,7 +1,22 @@
-import React from "react";
+import { useState, useContext } from "react";
+
+import CartContext from "../../../store/cart-context";
 import Modal from "../../UI/Modal";
+// import MealItemForm from "./MealItemForm";
 import classes from "./MealOrder.module.css";
+
 const MealOrder = (props) => {
+	const cartCtx = useContext(CartContext);
+
+	const addItemToCartHandler = (amount) => {
+		cartCtx.addItem({
+			id: props.id,
+			name: props.name,
+			amount: amount,
+			price: props.price,
+		});
+	};
+
 	const item = {
 		id: "m5",
 		name: "Latte",
@@ -22,14 +37,16 @@ const MealOrder = (props) => {
 		cover_img:
 			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
 	};
-	const isOptionsAvailable = item.options.length > 0;
+	const hasOptions = item.options.length > 0;
 
-	const [checked, setChecked] = React.useState([]);
+	const [checked, setChecked] = useState([]);
 
 	const checkboxHandler = (event) => {
 		let updatedList = [...checked];
-		console.log(updatedList);
-		if (event.target.checked) {
+
+		const isChecked = event.target.checked;
+
+		if (isChecked) {
 			updatedList = [...checked, event.target.value];
 		} else {
 			updatedList.splice(checked.indexOf(event.target.value), 1);
@@ -56,14 +73,7 @@ const MealOrder = (props) => {
 
 	const orderItem = (
 		<ul className={classes["order-item"]}>
-			<li>
-				<label>Options: </label>
-				{isOptionsAvailable ? (
-					<label>{listOptions}</label>
-				) : (
-					"No Options Available"
-				)}
-			</li>
+			<li>{hasOptions && <label>Options: {listOptions}</label>}</li>
 		</ul>
 	);
 
@@ -82,6 +92,12 @@ const MealOrder = (props) => {
 					Cancel
 				</button>
 				<button className={classes.button}>+ Add</button>
+				{/* <div>
+				<MealItemForm
+					onAddToCart={addItemToCartHandler}
+					stock={props.stock}
+				/>
+			</div> */}
 			</div>
 		</Modal>
 	);
