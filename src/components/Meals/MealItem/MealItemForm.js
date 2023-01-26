@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Input from "../../UI/Input";
 import classes from "./MealItemForm.module.css";
@@ -37,7 +37,15 @@ const MealItemForm = (props) => {
 					defaultValue: "1",
 				}}
 			/>
-			<button>+ Add</button>
+			<div className={classes.actions}>
+				<button
+					className={classes["button--alt"]}
+					onClick={props.onClose}
+				>
+					Cancel
+				</button>
+				<button className={classes.button}>+ Add</button>
+			</div>
 			{!amountIsValid && <p>Please Enter Valid Amount</p>}
 		</form>
 	);

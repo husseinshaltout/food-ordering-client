@@ -2,19 +2,32 @@
 	text-align: right;
 }
 
-.form button {
-	font: inherit;
-	cursor: pointer;
-	background-color: #143366;
-	border: 1px solid #143366;
-	color: white;
-	padding: 0.25rem 2rem;
-	border-radius: 20px;
-	font-weight: bold;
+.actions {
+	text-align: right;
 }
 
-.form button:hover,
-.form button:active {
+.actions button {
+	font: inherit;
+	cursor: pointer;
+	background-color: transparent;
+	border: 1px solid #143366;
+	padding: 0.5rem 2rem;
+	border-radius: 25px;
+	margin-left: 1rem;
+}
+
+.actions button:hover,
+.actions button:active {
 	background-color: #0f3a85;
 	border-color: #0f3a85;
+	color: white;
+}
+
+.actions .button--alt {
+	color: #143366;
+}
+
+.actions .button {
+	background-color: #143366;
+	color: white;
 }
