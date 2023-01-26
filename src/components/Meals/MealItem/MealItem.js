@@ -6,7 +6,7 @@ import MealItemForm from "./MealItemForm";
 
 const MealItem = (props) => {
 	const cartCtx = useContext(CartContext);
-	const price = `$${props.price.toFixed(2)}`;
+	// const price = `$${props.price.toFixed(2)}`;
 
 	const addItemToCartHandler = (amount) => {
 		cartCtx.addItem({
@@ -18,19 +18,36 @@ const MealItem = (props) => {
 	};
 
 	return (
-		<li className={classes.meal} onClick={props.onShow}>
-			<div>
+		<li className={classes["menu-item"]}>
+			<div className={classes.content}>
 				<button onClick={props.onShow}> + </button>
+				<div>
+
+				<h3>{props.name}</h3>
+				<div className={classes.price}>{props.category}</div>
+				</div>
+			</div>
+			<div className={classes["img-holder"]}>
+				<img src={props.thumbnail} alt="Product" />
+			</div>
+
+			{/* <button onClick={props.onShow}> + </button>
+			<div>
 				<h3>{props.name}</h3>
 				<div className={classes.description}>{props.description}</div>
 				<div className={classes.price}>{price}</div>
-			</div>
-			<div>
+			</div> */}
+			{/* <img
+				style={{ width: "15%", height: "15%" }}
+				src={props.thumbnail}
+				alt="Product"
+			/> */}
+			{/* <div>
 				<MealItemForm
 					onAddToCart={addItemToCartHandler}
 					stock={props.stock}
 				/>
-			</div>
+			</div> */}
 		</li>
 	);
 };
