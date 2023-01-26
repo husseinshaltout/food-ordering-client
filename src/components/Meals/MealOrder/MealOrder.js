@@ -17,7 +17,7 @@ const MealOrder = (props) => {
 		});
 	};
 
-	const item = {
+	const itemData = {
 		id: "m5",
 		name: "Latte",
 		stock: 64,
@@ -37,6 +37,7 @@ const MealOrder = (props) => {
 		cover_img:
 			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
 	};
+	const item = { ...props.itemData } ?? itemData;
 	const hasOptions = item.options.length > 0;
 
 	const [checked, setChecked] = useState([]);
