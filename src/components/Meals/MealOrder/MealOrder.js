@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import CartContext from "../../../store/cart-context";
 import Modal from "../../UI/Modal";
-// import MealItemForm from "./MealItemForm";
+import MealItemForm from "../MealItem/MealItemForm";
 import classes from "./MealOrder.module.css";
 
 const MealOrder = (props) => {
@@ -84,21 +84,11 @@ const MealOrder = (props) => {
 			</div>
 			<span className={classes["item-name"]}> {item.name}</span>
 			{orderItem}
-			<div className={classes.actions}>
-				<button
-					className={classes["button--alt"]}
-					onClick={props.onClose}
-				>
-					Cancel
-				</button>
-				<button className={classes.button}>+ Add</button>
-				{/* <div>
-				<MealItemForm
-					onAddToCart={addItemToCartHandler}
-					stock={props.stock}
-				/>
-			</div> */}
-			</div>
+			<MealItemForm
+				onAddToCart={addItemToCartHandler}
+				stock={props.stock}
+				onClose={props.onClose}
+			/>
 		</Modal>
 	);
 };

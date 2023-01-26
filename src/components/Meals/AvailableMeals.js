@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
@@ -80,6 +80,7 @@ const AvailableMeals = (props) => {
 				options={meal.options}
 				thumbnail={meal.cover_img}
 				onShow={props.onShow}
+				item={meal}
 			/>
 		</Fragment>
 	));

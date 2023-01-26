@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { createPortal } from "react-dom";
 import classes from "./Modal.module.css";
 
