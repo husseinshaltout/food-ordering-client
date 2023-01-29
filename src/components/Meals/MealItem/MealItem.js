@@ -7,7 +7,7 @@ const MealItem = (props) => {
 				<button
 					onClick={() => {
 						props.onShow();
-						props.itemData(props.item);
+						props.onGetItemData(props.item);
 					}}
 				>
 					{" "}

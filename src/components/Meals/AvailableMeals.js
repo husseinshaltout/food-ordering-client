@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
@@ -69,13 +69,6 @@ const DUMMY_MEALS = [
 ];
 
 const AvailableMeals = (props) => {
-	const [selectedItem, setSelectedItem] = useState("");
-
-	const getSelectedItemHandler = (item) => {
-		setSelectedItem(item);
-		props.getSelectedItem(selectedItem);
-	};
-
 	const mealsList = DUMMY_MEALS.map((meal) => (
 		<Fragment>
 			<MealItem
@@ -88,7 +81,7 @@ const AvailableMeals = (props) => {
 				thumbnail={meal.cover_img}
 				onShow={props.onShow}
 				item={meal}
-				itemData={getSelectedItemHandler}
+				onGetItemData={props.onGetItemData}
 			/>
 		</Fragment>
 	));
