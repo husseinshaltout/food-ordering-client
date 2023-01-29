@@ -7,7 +7,10 @@ const Meals = (props) => {
 	return (
 		<Fragment>
 			<MealsSummary />
-			<AvailableMeals onShow={props.onShow} />
+			<AvailableMeals
+				onGetItemData={props.onGetItemData}
+				onShow={props.onShow}
+			/>
 		</Fragment>
 	);
 };

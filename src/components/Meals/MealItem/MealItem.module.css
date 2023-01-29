@@ -1,15 +1,3 @@
-.meal {
-	display: flex;
-	justify-content: space-between;
-	margin: 1rem;
-	padding-bottom: 1rem;
-	border-bottom: 1px solid #ccc;
-}
-
-.meal h3 {
-	margin: 0 0 0.25rem 0;
-}
-
 .menu-item {
 	display: flex;
 	justify-content: space-between;
@@ -27,7 +15,7 @@
 	height: 100%;
 }
 .content h3 {
-	margin: 0 0 0.25rem 1rem;
+	margin: 0 0 0 1rem;
 }
 .img-holder {
 	display: flex;
@@ -43,10 +31,9 @@
 }
 
 .category {
-	margin: 0.25rem 0 0 1rem;
-	font-weight: bold;
+	margin: 0 0 0 1rem;
 	color: #143366;
-	font-size: 1.25rem;
+	font-size: 1rem;
 }
 
 .content button {

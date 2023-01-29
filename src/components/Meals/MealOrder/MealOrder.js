@@ -10,33 +10,12 @@ const MealOrder = (props) => {
 
 	const addItemToCartHandler = (amount) => {
 		cartCtx.addItem({
-			id: props.id,
-			name: props.name,
+			...props.item,
 			amount: amount,
-			price: props.price,
 		});
 	};
 
-	const item = {
-		id: "m5",
-		name: "Latte",
-		stock: 64,
-		category: { name: "Beverage", description: "Coffee" },
-		options: [
-			{
-				name: "Milk",
-				isAvailable: true,
-				optionList: ["Full", "Skimmed"],
-			},
-			{
-				name: "Sugar",
-				isAvailable: true,
-				optionList: ["1", "2"],
-			},
-		],
-		cover_img:
-			"https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg",
-	};
+	const { item } = props;
 	const hasOptions = item.options.length > 0;
 
 	const [checked, setChecked] = useState([]);

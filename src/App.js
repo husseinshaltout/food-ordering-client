@@ -26,13 +26,24 @@ function App() {
 		setMealOrderIsShown(false);
 	};
 
+	const [itemData, setItemData] = useState("");
+
+	const getItemDataHandler = (item) => {
+		setItemData(item);
+	};
+
 	return (
 		<CartProvider>
 			{cartIsShown && <Cart onClose={hideCartHandler} />}
-			{mealOrderIsShown && <MealOrder onClose={hideMealOrderHandler} />}
+			{mealOrderIsShown && (
+				<MealOrder item={itemData} onClose={hideMealOrderHandler} />
+			)}
 			<Header onShowCart={showCartHandler} />
 			<main>
-				<Meals onShow={showMealOrderHandler} />
+				<Meals
+					onGetItemData={getItemDataHandler}
+					onShow={showMealOrderHandler}
+				/>
 			</main>
 		</CartProvider>
 	);

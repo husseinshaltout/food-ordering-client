@@ -81,6 +81,7 @@ const AvailableMeals = (props) => {
 				thumbnail={meal.cover_img}
 				onShow={props.onShow}
 				item={meal}
+				onGetItemData={props.onGetItemData}
 			/>
 		</Fragment>
 	));
