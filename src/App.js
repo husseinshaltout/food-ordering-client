@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Cart from "./components/Cart/Cart";
 
+import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
 import MealOrder from "./components/Meals/MealOrder/MealOrder";
 import Meals from "./components/Meals/Meals";

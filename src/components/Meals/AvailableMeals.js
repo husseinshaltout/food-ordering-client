@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
@@ -69,7 +69,25 @@ const DUMMY_MEALS = [
 ];
 
 const AvailableMeals = (props) => {
-	const mealsList = DUMMY_MEALS.map((meal) => (
+	const [itemsList, setItemsList] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		async function fetchItemsListHandler() {
+			setIsLoading(true);
+			const response = await fetch("http://127.0.0.1:5000/api/item/", {
+				crossorigin: true,
+				method: "GET",
+			});
+			const itemsList = await response.json();
+
+			setItemsList(itemsList.item);
+			setIsLoading(false);
+		}
+		fetchItemsListHandler();
+	}, []);
+
+	const mealsList = itemsList.map((meal) => (
 		<Fragment>
 			<MealItem
 				id={meal.id}
@@ -88,7 +106,8 @@ const AvailableMeals = (props) => {
 	return (
 		<section className={classes.meals}>
 			<Card>
-				<ul>{mealsList}</ul>
+				{!isLoading && <ul>{mealsList}</ul>}
+				{isLoading && <p>Loading...</p>}
 			</Card>
 		</section>
 	);
