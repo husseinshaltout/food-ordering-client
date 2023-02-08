@@ -18,14 +18,29 @@ const Cart = (props) => {
 		cartCtx.addItem({ ...item, amount: 1 });
 	};
 
+	const addOrderHandler = async (order) => {
+		console.log(order);
+		const response = await fetch(
+			"https://react-http-c56f5-default-rtdb.firebaseio.com/orders.json",
+			{
+				method: "POST",
+				body: JSON.stringify(order),
+				headers: { "Content-Type": "application/json" },
+			}
+		);
+
+		const data = await response.json();
+
+		console.log(data);
+	};
 	const cartItems = (
 		<ul className={classes["cart-items"]}>
 			{cartCtx.items.map((item) => (
 				<CartItem
-					key={item.id}
+					key={item._id}
 					item={item}
 					amount={item.amount}
-					onRemove={cartItemRemoveHandler.bind(null, item.id)}
+					onRemove={cartItemRemoveHandler.bind(null, item._id)}
 					onAdd={cartItemAddHandler.bind(null, item)}
 				/>
 			))}
@@ -47,7 +62,14 @@ const Cart = (props) => {
 				>
 					Close
 				</button>
-				{hasItems && <button className={classes.button}>Order</button>}
+				{hasItems && (
+					<button
+						onClick={addOrderHandler(cartCtx.items)}
+						className={classes.button}
+					>
+						Order
+					</button>
+				)}
 			</div>
 		</Modal>
 	);
