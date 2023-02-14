@@ -8,10 +8,12 @@ const CartItem = (props) => {
 				<h2>{props.item.name}</h2>
 				<div className={classes.summary}>
 					{props.item.options.map((option) => (
-						<span className={classes.price}>{option.name}</span>
+						<span key={option._id} className={classes.price}>
+							{option.name}
+						</span>
 					))}
 
-					<span className={classes.amount}>x {props.amount}</span>
+					<span className={classes.amount}>x {props.qty}</span>
 				</div>
 			</div>
 			<div className={classes.actions}>

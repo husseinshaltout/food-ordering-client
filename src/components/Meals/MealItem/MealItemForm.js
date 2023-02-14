@@ -38,7 +38,7 @@ const MealItemForm = (props) => {
 					className={classes["button--alt"]}
 					onClick={props.onClose}
 				>
-					Cancel
+					Close
 				</button>
 				<button className={classes.button}>+ Add</button>
 			</div>
