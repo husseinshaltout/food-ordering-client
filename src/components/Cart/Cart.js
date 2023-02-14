@@ -21,12 +21,13 @@ const Cart = (props) => {
 		cartCtx.addItem({ ...item, qty: 1 });
 	};
 
-	const order = {
-		userName: "Hussein Shaltout",
-		phoneNumber: "",
-		itemList: { ...cartCtx.items },
-	};
-	const confirmOrderHandler = async () => {
+	const confirmOrderHandler = async (userData) => {
+		const order = {
+			userName: userData.name,
+			phoneNumber: userData.phoneNumber,
+			itemList: { ...cartCtx.items },
+		};
+
 		console.log(`Order: ${JSON.stringify(order)}`);
 
 		const response = await fetch(

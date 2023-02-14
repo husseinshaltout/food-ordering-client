@@ -31,6 +31,8 @@ const Checkout = (props) => {
 		if (!formIsValid) {
 			return;
 		}
+
+		props.onConfirm({ name: enteredName, phoneNumber: enteredPhoneNumber });
 	};
 
 	const nameControllerClasses = `${classes.control} ${
@@ -58,9 +60,7 @@ const Checkout = (props) => {
 				<button type="button" onClick={props.onCancel}>
 					Cancel
 				</button>
-				<button className={classes.submit} onClick={props.onConfirm}>
-					Confirm
-				</button>
+				<button className={classes.submit}>Confirm</button>
 			</div>
 		</form>
 	);
