@@ -10,35 +10,54 @@ const MealOrder = (props) => {
 
 	const addItemToCartHandler = (amount) => {
 		cartCtx.addItem({
-			...props.item,
-			amount: amount,
+			itemID: props.item._id,
+			name: props.item.name,
+			remarks: "",
+			options: [...props.item.options],
+			qty: amount,
 		});
 	};
 
 	const { item } = props;
 	const hasOptions = item.options.length > 0;
 
-	const [checked, setChecked] = useState([]);
+	const [checked, setChecked] = useState(
+		new Array(item.options.length).fill(false)
+	);
 
-	const checkboxHandler = (event) => {
-		let updatedList = [...checked];
+	const [option, setOption] = useState([]);
 
-		const isChecked = event.target.checked;
+	const checkboxHandler = (index, optionName) => {
+		let newChecked = [...checked];
 
-		if (isChecked) {
-			updatedList = [...checked, event.target.value];
-		} else {
-			updatedList.splice(checked.indexOf(event.target.value), 1);
-		}
-		setChecked(updatedList);
+		newChecked[index] = !newChecked[index];
+
+		setChecked(newChecked);
+
+		let selectedOptions = newChecked.reduce(
+			(accOptionList, currentState) => {
+				if (currentState === true) {
+					accOptionList.push(optionName);
+				}
+				return accOptionList;
+			},
+			[]
+		);
+		setOption(selectedOptions);
+		console.log(selectedOptions);
 	};
 
 	const listOptions = item.options.map(
 		(option, index) =>
 			option.isAvailable && (
 				<div key={index} className={classes["order-item__option"]}>
-					<label>
-						<input onClick={checkboxHandler} type="checkbox" />
+					<input
+						id={`custom-checkbox-${index}`}
+						checked={checked[index]}
+						onChange={() => checkboxHandler(index, option.name)}
+						type="checkbox"
+					/>
+					<label htmlFor={`custom-checkbox-${index}`}>
 						{option.name}
 					</label>
 					<select>
