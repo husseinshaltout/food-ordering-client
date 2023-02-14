@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 
 const Cart = (props) => {
+	const [isCheckout, setIsCheckout] = useState(false);
+
 	const cartCtx = useContext(CartContext);
 
 	const hasItems = cartCtx.items.length > 0;
@@ -15,11 +18,17 @@ const Cart = (props) => {
 	};
 
 	const cartItemAddHandler = (item) => {
-		cartCtx.addItem({ ...item, amount: 1 });
+		cartCtx.addItem({ ...item, qty: 1 });
 	};
 
-	const addOrderHandler = async (order) => {
-		console.log(order);
+	const order = {
+		userName: "Hussein Shaltout",
+		phoneNumber: "",
+		itemList: { ...cartCtx.items },
+	};
+	const confirmOrderHandler = async () => {
+		console.log(`Order: ${JSON.stringify(order)}`);
+
 		const response = await fetch(
 			"https://react-http-c56f5-default-rtdb.firebaseio.com/orders.json",
 			{
@@ -30,21 +39,36 @@ const Cart = (props) => {
 		);
 
 		const data = await response.json();
+	};
 
-		console.log(data);
+	const orderHandler = () => {
+		setIsCheckout(true);
 	};
 	const cartItems = (
 		<ul className={classes["cart-items"]}>
 			{cartCtx.items.map((item) => (
 				<CartItem
-					key={item._id}
+					key={item.itemID}
 					item={item}
-					amount={item.amount}
-					onRemove={cartItemRemoveHandler.bind(null, item._id)}
+					qty={item.qty}
+					onRemove={cartItemRemoveHandler.bind(null, item.itemID)}
 					onAdd={cartItemAddHandler.bind(null, item)}
 				/>
 			))}
 		</ul>
+	);
+
+	const modalActions = (
+		<div className={classes.actions}>
+			<button className={classes["button--alt"]} onClick={props.onClose}>
+				Close
+			</button>
+			{hasItems && (
+				<button onClick={orderHandler} className={classes.button}>
+					Order
+				</button>
+			)}
+		</div>
 	);
 
 	return (
@@ -55,22 +79,13 @@ const Cart = (props) => {
 					<span>Empty Cart</span>
 				</div>
 			)}
-			<div className={classes.actions}>
-				<button
-					className={classes["button--alt"]}
-					onClick={props.onClose}
-				>
-					Close
-				</button>
-				{hasItems && (
-					<button
-						onClick={addOrderHandler(cartCtx.items)}
-						className={classes.button}
-					>
-						Order
-					</button>
-				)}
-			</div>
+			{isCheckout && (
+				<Checkout
+					onConfirm={confirmOrderHandler}
+					onCancel={props.onClose}
+				/>
+			)}
+			{!isCheckout && modalActions}
 		</Modal>
 	);
 };
