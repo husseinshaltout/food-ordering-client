@@ -33,15 +33,26 @@ const Checkout = (props) => {
 		}
 	};
 
+	const nameControllerClasses = `${classes.control} ${
+		formInputValidity.name ? "" : classes.invalid
+	}`;
+	const phoneNumberControllerClasses = `${classes.control} ${
+		formInputValidity.phoneNumber ? "" : classes.invalid
+	}`;
+
 	return (
 		<form onSubmit={confirmHandler}>
-			<div className={classes.control}>
+			<div className={nameControllerClasses}>
 				<label htmlFor="name">Your Name</label>
 				<input type="text" id="name" ref={nameInputRef} />
+				{!formInputValidity.name && <p>Please Enter a Valid Name</p>}
 			</div>
-			<div className={classes.control}>
+			<div className={phoneNumberControllerClasses}>
 				<label htmlFor="phonenumber">Phone Number</label>
 				<input type="text" id="phonenumber" ref={phoneNumberInputRef} />
+				{!formInputValidity.phoneNumber && (
+					<p>Please Enter a Valid Phone Number</p>
+				)}
 			</div>
 			<div className={classes.actions}>
 				<button type="button" onClick={props.onCancel}>
