@@ -22,43 +22,38 @@ const MealOrder = (props) => {
 	const { item } = props;
 	const hasOptions = item.options.length > 0;
 
-	const [checked, setChecked] = useState(
-		new Array(item.options.length).fill(false)
-	);
+	const [checked, setChecked] = useState({});
 
 	const [optionsList, setOptionsList] = useState({});
 
-	const updateOptionsList = (item) => {
-		if (optionsList.includes(item)) {
-			setOptionsList(optionsList.filter((option) => option !== item));
-		} else {
-			setOptionsList([...optionsList, item]); // or push
+	const updateOptionListHandler = (optionName, selection) => {
+		let newOptionsList = { ...optionsList };
+		const isAlreadySelected = newOptionsList.optionName === selection;
+
+		if (!(optionName in newOptionsList)) {
+			setOptionsList({ ...optionsList, [optionName]: selection });
+			return;
+		}
+		if (!isAlreadySelected) {
+			newOptionsList[optionName] = selection;
+			setOptionsList(newOptionsList);
 		}
 	};
 
-	// const checkboxHandler = (index, optionName, selection) => {
-	// 	let newChecked = [...checked];
-
-	// 	newChecked[index] = !newChecked[index];
-
-	// 	setChecked(newChecked);
-
-	// 	if (newChecked[index] === true) {
-	// 		const itemSelectedOption = { [optionName]: selection };
-	// 		updateOptionsList(itemSelectedOption);
-	// 	}
-	// 	console.log(optionsList);
-	// };
 	const radioButtonHandler = (index, optionName, selection) => {
-		let newOptionsList = { ...optionsList };
+		let newChecked = { ...checked };
 
-		if (optionName in newOptionsList) {
-			const isAlreadySelected = newOptionsList.optionName === selection;
-			if (!isAlreadySelected) newOptionsList[optionName] = selection;
-			setOptionsList(newOptionsList);
-		} else {
-			setOptionsList({ ...optionsList, [optionName]: selection }); // or push
+		const isAlreadySelected = newChecked.optionName === index;
+
+		if (!(optionName in newChecked)) {
+			setChecked({ ...checked, [optionName]: index });
+			return;
 		}
+		if (!isAlreadySelected) {
+			newChecked[optionName] = index;
+			setChecked(newChecked);
+		}
+		updateOptionListHandler(optionName, selection);
 
 		console.log(optionsList);
 	};
@@ -77,7 +72,7 @@ const MealOrder = (props) => {
 										key={index}
 										name={option.name}
 										id={`custom-checkbox-${index}`}
-										checked={checked[index]}
+										checked={checked[option.name] === index}
 										onChange={() =>
 											radioButtonHandler(
 												index,
@@ -87,43 +82,13 @@ const MealOrder = (props) => {
 										}
 										type="radio"
 									/>
-									{/* <input
-										key={index}
-										name={option.name}
-										id={`custom-checkbox-${index}`}
-										checked={checked[index]}
-										onChange={() =>
-											checkboxHandler(
-												index,
-												option.name,
-												selection
-											)
-										}
-										type="radio"
-									/> */}
+
 									{selection}
 								</label>
 							</li>
 						))}
 					</ul>
 				</Collapsible>
-
-				/* <div key={index} className={classes["order-item__option"]}>
-						<input
-							id={`custom-checkbox-${index}`}
-							checked={checked[index]}
-							onChange={() => checkboxHandler(index, option.name)}
-							type="checkbox"
-						/>
-						<label htmlFor={`custom-checkbox-${index}`}>
-							{option.name}
-						</label>
-						<select>
-							{option.optionList.map((selection, index) => (
-								<option key={index}>{selection}</option>
-							))}
-						</select>
-					</div> */
 			)
 	);
 
