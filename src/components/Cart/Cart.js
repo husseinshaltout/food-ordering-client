@@ -26,29 +26,26 @@ const Cart = (props) => {
 
 	const confirmOrderHandler = async (userData) => {
 		setIsSubmitting(true);
+		setError(null);
 		const order = {
 			userName: userData.name,
 			phoneNumber: userData.phoneNumber,
 			itemList: { ...cartCtx.items },
 		};
 
-		console.log(`Order: ${JSON.stringify(order)}`);
-
 		try {
-			const response = await fetch(
-				"https://react-http-c56f5-default-rtdb.firebaseio.com/orders.json",
-				{
-					method: "POST",
-					body: JSON.stringify(order),
-					headers: { "Content-Type": "application/json" },
-				}
-			);
+			const response = await fetch("http://127.0.0.1:5000/api/order/", {
+				method: "POST",
+				body: JSON.stringify(order),
+				headers: { "Content-Type": "application/json" },
+			});
 
 			if (!response.ok) {
 				throw new Error("Something went wrong!");
 			}
 
 			const data = await response.json();
+			console.log(data);
 		} catch (error) {
 			setError(error.message);
 		}
@@ -123,7 +120,8 @@ const Cart = (props) => {
 		<Modal onClose={props.onClose}>
 			{!isSubmitting && !isSubmit && cartModalContent}
 			{isSubmitting && isSubmittingModalContent}
-			{!isSubmitting && isSubmit && isSubmitModalContent}
+			{!error && !isSubmitting && isSubmit && isSubmitModalContent}
+			{error && <p>{error}</p>}
 		</Modal>
 	);
 };
