@@ -9,12 +9,25 @@ import classes from "./MealOrder.module.css";
 const MealOrder = (props) => {
 	const cartCtx = useContext(CartContext);
 
+	const transformOptionList = () => {
+		let transformedOptions = [];
+		for (const name in optionsList) {
+			transformedOptions.push({
+				name: name,
+				selectedOption: optionsList[name],
+			});
+		}
+		return transformedOptions;
+	};
+
 	const addItemToCartHandler = (amount) => {
+		const transformedOptions = transformOptionList();
+
 		cartCtx.addItem({
 			itemID: props.item._id,
 			name: props.item.name,
 			remarks: "",
-			options: [...props.item.options],
+			options: transformedOptions,
 			qty: amount,
 		});
 	};
