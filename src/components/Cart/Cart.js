@@ -30,7 +30,7 @@ const Cart = (props) => {
 		const order = {
 			userName: userData.name,
 			phoneNumber: userData.phoneNumber,
-			itemList: { ...cartCtx.items },
+			itemList: cartCtx.items,
 		};
 
 		try {
@@ -39,7 +39,6 @@ const Cart = (props) => {
 				body: JSON.stringify(order),
 				headers: { "Content-Type": "application/json" },
 			});
-
 			if (!response.ok) {
 				throw new Error("Something went wrong!");
 			}
