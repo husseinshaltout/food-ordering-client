@@ -25,8 +25,8 @@ const MealOrder = (props) => {
 
 		cartCtx.addItem({
 			itemID: props.item._id,
-			name: props.item.name,
-			remarks: "",
+			// TODO:get name from itemID
+			// name: props.item.name,
 			options: transformedOptions,
 			qty: amount,
 		});
@@ -67,9 +67,8 @@ const MealOrder = (props) => {
 			setChecked(newChecked);
 		}
 		updateOptionListHandler(optionName, selection);
-
-		console.log(optionsList);
 	};
+
 	const listOptions = item.options.map(
 		(option, optionIndex) =>
 			option.isAvailable && (
